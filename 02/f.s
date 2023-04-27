@@ -12,8 +12,17 @@ f:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	cmpq	$0, -16(%rbp)
+	jns	.L2
 	movq	-8(%rbp), %rax
-	addq	$1, %rax
+	subq	-16(%rbp), %rax
+	jmp	.L4
+.L2:
+	movq	-8(%rbp), %rdx
+	movq	-16(%rbp), %rax
+	addq	%rdx, %rax
+.L4:
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret

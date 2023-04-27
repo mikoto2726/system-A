@@ -6,7 +6,11 @@ f:
 .LFB0:
 	.cfi_startproc
 	endbr64
-	leaq	1(%rdi), %rax
+	movq	%rdi, %rax
+	subq	%rsi, %rax
+	addq	%rsi, %rdi
+	testq	%rsi, %rsi
+	cmovns	%rdi, %rax
 	ret
 	.cfi_endproc
 .LFE0:
